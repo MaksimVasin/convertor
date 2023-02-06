@@ -6,12 +6,12 @@ import { useContext } from 'react'
 import { authRoutes, publicRoutes } from '../routes';
 
 const AppRouter = (): JSX.Element => {
-  const context = useContext(Context);
-  if (!context) throw new Error("Context has to be used within <Context.Provider>");
+  const {user} = useContext(Context);
+  //if (!context) throw new Error("Context has to be used within <Context.Provider>");
   
-  const user = context.user;
+  //const user = context.user;
 
-  console.log(user);
+  //console.log(user);
 
   return (
     <div>
