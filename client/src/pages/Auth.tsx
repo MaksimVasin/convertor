@@ -1,11 +1,45 @@
 import { Container, Form, Card } from "react-bootstrap";
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import Button from "react-bootstrap/esm/Button";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { login, registration } from "../http/userAPI";
+import { useState, useContext } from 'react'
+import { observer } from "mobx-react-lite"
+import { Context } from "../index";
 
-export function AuthPage(): JSX.Element {
+const AuthPage = observer(function(): JSX.Element {
+  const {user} = useContext(Context)
   const location = useLocation()
+  const navigate = useNavigate()
   const isLogin = location.pathname === LOGIN_ROUTE
+
+  const [userLogin, setUserLogin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const send = async () => {
+    try {
+      let data;
+      if (isLogin) {
+        data = await login(userLogin, email, password); // ?
+        console.log('Логин')
+      }
+      else {
+        data = await registration(userLogin, email, password); // ?
+        console.log('Регистрация')
+      }
+      user.setUser(user._user)
+      user.setIsAuth(true)
+      navigate(CONVERTOR_ROUTE)
+    }
+    catch(e: any) {
+      console.log(e)
+      alert(e.response.message)
+      //console.log(e.response.data.message)
+      //alert(e)
+    }
+    
+  }
 
   return (
     <Container className="d-flex justify-content-center align-items-center mt-4">
@@ -18,14 +52,30 @@ export function AuthPage(): JSX.Element {
         }
         
         <Form className="d-flex flex-column">
-          <Form.Control className="mt-2" placeholder="login"/>
-          <Form.Control className="mt-2" placeholder="email"/>
-          <Form.Control className="mt-2" placeholder="password"/>
+          <Form.Control 
+            className="mt-2"
+            placeholder="login"
+            value={userLogin}
+            onChange={e => setUserLogin(e.target.value)}
+          />
+          <Form.Control
+            className="mt-2"
+            placeholder="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}  
+          />
+          <Form.Control
+            className="mt-2"
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
           {
             isLogin ? 
-            <Button className="mt-2" variant="success">Login</Button>
+            <Button className="mt-2" variant="success" onClick={send}>Login</Button>
             :
-            <Button className="mt-2" variant="success">Registration</Button>
+            <Button className="mt-2" variant="success" onClick={send}>Registration</Button>
           }
           {
             isLogin && <NavLink to={REGISTRATION_ROUTE} className="m-auto mt-2">Registration</NavLink>
@@ -35,4 +85,6 @@ export function AuthPage(): JSX.Element {
       </Card>
     </Container>
   )
-}
+})
+
+export default AuthPage

@@ -10,6 +10,12 @@ export const NavBar = observer(() => {
   const {user} = useContext(Context)
   const navigate = useNavigate()
 
+  const logOut = () => {
+    user.setUser(false)
+    user.setIsAuth(false)
+    localStorage.removeItem('token')
+  }
+
   return(
     <Navbar bg="dark" variant="light">
       <Container>
@@ -17,12 +23,12 @@ export const NavBar = observer(() => {
         { user._isAuth ? 
         <Nav className="ml-auto">
           <NavLink className="m-2" to={ADMIN_ROUTE}>Admin</NavLink>
-          <Button onClick={() => navigate(LOGIN_ROUTE)}>Выйти</Button>
+          <Button onClick={() => logOut()}>Logout</Button>
         </Nav>
         :
         <Nav className="ml-auto">
           <NavLink className="m-2" to={LOGIN_ROUTE}>Login</NavLink>
-          <NavLink className="m-2" to={REGISTRATION_ROUTE}>Registration</NavLink>
+          {/* <NavLink className="m-2" to={REGISTRATION_ROUTE}>Registration</NavLink> */}
         </Nav> } 
       </Container>
     </Navbar>

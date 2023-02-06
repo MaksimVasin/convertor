@@ -11,6 +11,8 @@ export const Context = createContext<ContextType>({
   user: new UserStore()
 });
 
+
+
 root.render(
   <Context.Provider value={{
     user: new UserStore()
