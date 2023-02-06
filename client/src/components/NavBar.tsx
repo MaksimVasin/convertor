@@ -1,26 +1,26 @@
 import { observer } from "mobx-react-lite"
 import { useContext } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
+import { NavLink } from "react-router-dom"
 import { Context } from "../index"
+import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts"
 
 export const NavBar = observer(() => {
 
   const {user} = useContext(Context)
 
   return(
-    <Navbar bg="success" variant="light">
+    <Navbar bg="dark" variant="light">
       <Container>
-        <Navbar.Brand href="/">Convertor</Navbar.Brand>
+        <NavLink to={CONVERTOR_ROUTE}>Convertor</NavLink>
         { user._isAuth ? 
         <Nav className="ml-auto">
-          <Nav.Link href="/admin">Admin</Nav.Link>
-          {/* <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/registration">Registration</Nav.Link> */}
+          <NavLink to={ADMIN_ROUTE}>Admin</NavLink>
         </Nav>
         :
         <Nav className="ml-auto">
-          <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/registration">Registration</Nav.Link>
+          <NavLink className="m-2" to={LOGIN_ROUTE}>Login</NavLink>
+          <NavLink className="m-2" to={REGISTRATION_ROUTE}>Registration</NavLink>
         </Nav> } 
       </Container>
     </Navbar>
