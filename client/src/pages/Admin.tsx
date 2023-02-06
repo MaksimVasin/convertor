@@ -1,5 +1,9 @@
+import { Container } from "react-bootstrap";
+
 export function AdminPage(): JSX.Element {
   return (
-    <div>AdminPage</div>
+    <Container>
+      <h2>Admin page</h2>
+    </Container>
   )
 }
