@@ -11,7 +11,7 @@ export const NavBar = observer(() => {
   const navigate = useNavigate()
 
   const logOut = () => {
-    user.setUser(false)
+    user.setUser({})
     user.setIsAuth(false)
     localStorage.removeItem('token')
   }
@@ -22,6 +22,7 @@ export const NavBar = observer(() => {
         <NavLink to={CONVERTOR_ROUTE}>Convertor</NavLink>
         { user._isAuth ? 
         <Nav className="ml-auto">
+          {/* <Button onClick={() => navigate(ADMIN_ROUTE)}>Admin</Button> */}
           <NavLink className="m-2" to={ADMIN_ROUTE}>Admin</NavLink>
           <Button onClick={() => logOut()}>Logout</Button>
         </Nav>

@@ -17,7 +17,7 @@ export default class UserStore {
 
   setIsAuth(auth: Boolean) { this._isAuth = auth }
 
-  setUser(user: Boolean) { this._user = user }
+  setUser(user: any) { this._user = user }
 
   get isAuth(): Boolean { return this._isAuth }
 
