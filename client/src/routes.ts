@@ -1,6 +1,6 @@
 import { AdminPage } from "./pages/Admin"
 import AuthPage from "./pages/Auth"
-import { ConvertorPage } from "./pages/Convertor"
+import ConvertorPage from "./pages/Convertor"
 
 import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "./utils/consts"
 

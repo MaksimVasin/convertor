@@ -1,6 +1,6 @@
 import {Routes, Route, /* Navigate */} from 'react-router-dom'
 import { Context } from '../index';
-import { ConvertorPage } from '../pages/Convertor';
+import ConvertorPage from '../pages/Convertor';
 import { useContext } from 'react'
 
 import { authRoutes, publicRoutes } from '../routes';

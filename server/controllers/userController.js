@@ -2,6 +2,10 @@ const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {User} = require('../models/models') // + набор картинок
+const {png2svg} = require('svg-png-converter')
+const { readFileSync } = require('node:fs')
+const fs = require('fs')
+const path = require('path')
 
 const generateJwt = (id, login, email, role) => {
   return jwt.sign(
