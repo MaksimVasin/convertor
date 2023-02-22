@@ -66,7 +66,7 @@ class UserController {
       const users = await User.findAll();
       res.json(users);
     } catch (err) {
-      next(ApiError.internalServerError(err.message));
+      next(ApiError.internal(err.message));
     }
   }
 

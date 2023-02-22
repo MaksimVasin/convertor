@@ -2,10 +2,10 @@ const sequelize = require('../db.js')
 const {DataTypes} = require('sequelize')
 
 const Image = sequelize.define('image', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  filename: {type: DataTypes.STRING, unique: true},
-  dataSVG: {type: DataTypes.BLOB, unique: true},
-  dataPNG: {type: DataTypes.BLOB, unique: true},
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, unique: true},
+  filename: {type: DataTypes.STRING},
+  dataSVG: {type: DataTypes.BLOB},
+  dataPNG: {type: DataTypes.BLOB},
 })
 
 const User = sequelize.define('user', {
