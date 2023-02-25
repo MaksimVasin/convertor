@@ -1,7 +1,7 @@
 import { AdminPage } from "./pages/Admin"
 import AuthPage from "./pages/Auth"
 import ConvertorPage from "./pages/Convertor"
-import { PersonalAreaPage } from "./pages/PersonalArea"
+import PersonalAreaPage from "./pages/PersonalArea"
 
 import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, PERSONAL_AREA_ROUTE } from "./utils/consts"
 

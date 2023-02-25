@@ -53,6 +53,7 @@ class UserController {
 
   async auth(req, res, next) {
     const token = generateJwt(req.user.id, req.user.login, req.user.email, req.user.role);
+    console.log('auth')
     return res.json({token})
     /*const {id} = req.query
     if (!id) {

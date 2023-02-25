@@ -1,10 +1,10 @@
-import { Button, Card, Container, Spinner } from 'react-bootstrap'
+import { Button, Container, Spinner } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 
 import { observer } from "mobx-react-lite"
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState/* , useContext */ } from 'react';
 //import { Context } from "../index";
-import { testConvert, testUpload } from "../http/convertAPI";
+import { convert, upload } from "../http/convertAPI";
 
 const ConvertorPage = observer(function(): JSX.Element {
 
@@ -20,15 +20,15 @@ const ConvertorPage = observer(function(): JSX.Element {
     setImageURL(newImageURL)
     setConvertImage(null)
 
-    async function convert() {
+    async function convertImage() {
       
       if (image == null) return
-      await testUpload(image)
-      const result = await testConvert(image.name)
+      await upload(image)
+      const result = await convert(image.name)
 
       setConvertImage(result)
     }
-    convert()
+    convertImage()
   }, [image])
 
   function onImageChange(e: any) {
