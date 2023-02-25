@@ -1,4 +1,4 @@
-import { Container, Spinner } from 'react-bootstrap'
+import { Button, Card, Container, Spinner } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 
 import { observer } from "mobx-react-lite"
@@ -52,7 +52,13 @@ const ConvertorPage = observer(function(): JSX.Element {
         Boolean(!convertImage && imageURL) && <Spinner animation={"grow"}/>
       }
       {
-        convertImage && <img style={{width: 300, height: 300}} src={convertImage} alt="" />
+        convertImage &&
+          <div>
+            <img style={{width: 300, height: 300}} src={convertImage} alt="" />
+            <Button className="m-2">Save</Button>
+            <Button className="m-2">Edit</Button>
+            <Button className="m-2">Download</Button>
+          </div>
       }
     </Container>
   )

@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { Container, Navbar, Nav, Button } from "react-bootstrap"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Context } from "../index"
-import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts"
+import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, PERSONAL_AREA_ROUTE, REGISTRATION_ROUTE } from "../utils/consts"
 
 export const NavBar = observer(() => {
 
@@ -23,6 +23,7 @@ export const NavBar = observer(() => {
         { user._isAuth ? 
         <Nav className="ml-auto">
           {/* <Button onClick={() => navigate(ADMIN_ROUTE)}>Admin</Button> */}
+          <NavLink className="m-2" to={PERSONAL_AREA_ROUTE}>Perosnal area</NavLink>
           <NavLink className="m-2" to={ADMIN_ROUTE}>Admin</NavLink>
           <Button onClick={() => logOut()}>Logout</Button>
         </Nav>
