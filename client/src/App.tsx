@@ -13,7 +13,10 @@ const App = observer(() => {
 
   useEffect(() => {
     check().then(data => { // ???
-      user.setUser(true) // ???
+      console.log('стор после рефреша')
+      user.setUser(data)
+      console.log(user._user)
+      //user.setUser(null) // ???
       user.setIsAuth(true)
     }).finally(() => setLoading(false))
   }, [])

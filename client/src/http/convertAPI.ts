@@ -1,8 +1,8 @@
 import { $host } from "./index";
 
 export const convert = async(name: string) => {
-  const {data} = await $host.post('api/convert/convert', {name}, { responseType: 'blob' })
-  return URL.createObjectURL(data)
+  const {data} = await $host.post('api/convert/convert', {name})
+  return data
 }
 
 export const upload = async(file: Blob | string | null) => {

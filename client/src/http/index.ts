@@ -4,7 +4,7 @@ const $host = axios.create({
     baseURL: "http://localhost:5000/"
 })
 
-const $authHost = axios.create({
+const $authHost = axios.create({ // + авторизация
     baseURL: "http://localhost:5000/"
 })
 

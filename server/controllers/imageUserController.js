@@ -3,6 +3,27 @@ const ApiError = require('../error/ApiError');
 
 class ImageUserController {
   
+  async createUserImage(req, res, next) {
+    try {
+      const { userId } = req.params
+      const { filename, dataSVG, dataPNG } = req.body
+      console.log('___3. На бек прилетело ', dataSVG)
+      const image = await Image.create({ filename, dataSVG, dataPNG })
+
+      const user = await User.findByPk(userId)
+
+      if (!user) return next(ApiError.badRequest('Пользователь не найден'))
+
+      await user.addImage(image)
+
+      res.json({
+        message: `Изображение ${image.id} связано с пользователем ${userId}`,
+      });
+    } catch (err) {
+      return next(ApiError.internal(err.message));
+    }
+  }
+
   async linkImageToUser(req, res, next) {
     try {
       const { userId, imageId } = req.params;
@@ -37,7 +58,8 @@ class ImageUserController {
       }
   
       const userImages = await user.getImages()
-      res.json(userImages)
+      console.log('___4. На беке получаю изображения', userImages)
+      return res.json(userImages)
     } catch (err) {
       return next(ApiError.internal(err.message))
     }

@@ -15,6 +15,7 @@ router.delete('/:id', userController.delete) // test // Удаление пол�
 
 router.get('/:id/images', imageUserController.getUserImages) // получение списка изображений, принадлежащих конкретному пользователю
 router.put('/:userId/images/:imageId', imageUserController.linkImageToUser) // связывание изображения с пользователем
+router.post('/:userId/createImage', imageUserController.createUserImage) // ЗАМЕНА СОЗДАНИЮ ИЗОБРАЖЕНИЯ И ПРИВЯЗКИ К ПОЛЬЗОВАТЕЛЮ
 router.delete('/:userId/images/:imageId', imageUserController.deleteImageToUser) // удаление связи между пользователем и изображением 
 
 module.exports = router

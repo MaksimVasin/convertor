@@ -28,7 +28,8 @@ const AuthPage = observer(function(): JSX.Element {
         data = await registration(userLogin, email, password); // ?
         console.log('Регистрация')
       }
-      user.setUser(user._user)
+      console.log('Кинул в стор', data)
+      user.setUser(data)
       user.setIsAuth(true)
       navigate(CONVERTOR_ROUTE)
     }

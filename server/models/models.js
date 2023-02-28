@@ -4,8 +4,8 @@ const {DataTypes} = require('sequelize')
 const Image = sequelize.define('image', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, unique: true},
   filename: {type: DataTypes.STRING},
-  dataSVG: {type: DataTypes.BLOB},
-  dataPNG: {type: DataTypes.BLOB},
+  dataSVG: {type: DataTypes.STRING},
+  dataPNG: {type: DataTypes.STRING},
 })
 
 const User = sequelize.define('user', {

@@ -11,7 +11,7 @@ export const NavBar = observer(() => {
   const navigate = useNavigate()
 
   const logOut = () => {
-    user.setUser({})
+    user.setUser(null)
     user.setIsAuth(false)
     localStorage.removeItem('token')
   }

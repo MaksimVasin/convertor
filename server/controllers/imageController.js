@@ -17,7 +17,7 @@ class ImageController {
     try {
       const images = await Image.findAll();
       return res.json(images);
-    } catch (error) {
+    } catch (err) {
       return next(ApiError.internal(err.message));
     }
   }

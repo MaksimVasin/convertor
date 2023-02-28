@@ -18,3 +18,8 @@ export const check = async () => {
   localStorage.setItem('token', data.token)
   return jwt_decode(data.token);
 }
+
+export const addImage = async (id: Number, filename: string, dataSVG: string, dataPNG: string) => {
+  const {data} = await $authHost.post(`api/user/${id}/createImage`, {filename, dataSVG, dataPNG})
+  return data
+}
