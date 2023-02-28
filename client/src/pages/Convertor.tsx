@@ -1,8 +1,6 @@
-import { Button, Container, Spinner } from 'react-bootstrap'
-import { Form } from 'react-bootstrap'
-
-import { observer } from "mobx-react-lite"
 import { useEffect, useState, useContext } from 'react';
+import { Button, Container, Spinner, Form } from 'react-bootstrap'
+import { observer } from "mobx-react-lite"
 import { Context } from "../index";
 import { convert, upload } from "../http/convertAPI";
 import { addImage } from '../http/userAPI';
@@ -17,17 +15,15 @@ const ConvertorPage = observer(function(): JSX.Element {
   const {user} = useContext(Context)
 
   useEffect(() => {
-    if (image === null) return;
+    if (!image) return;
 
     async function convertImage() {
+  
+      const pathNewImagePNG = await upload(image)
+      setPathImagePNG(pathNewImagePNG)
       
-      if (image == null) return
-      const newImageName = await upload(image)
-      setPathImagePNG(newImageName)
-      const result = await convert(newImageName)
-      
-      console.log(result)
-      setPathImageSVG(result)
+      const pathNewImageSVG = await convert(pathNewImagePNG)
+      setPathImageSVG(pathNewImageSVG)
 
     }
     convertImage()
@@ -39,9 +35,7 @@ const ConvertorPage = observer(function(): JSX.Element {
 
   async function saveImage() {
     if (!image) return
-    console.log('___1. На фронте отравляю', pathImageSVG, pathImagePNG)
     await addImage(user._user.id, image.name.split('.').slice(0, -1).join('.'), pathImageSVG, pathImagePNG)
-    console.log('Вроде сохранил')
   }
 
   return (

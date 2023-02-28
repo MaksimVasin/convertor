@@ -1,6 +1,6 @@
-import { observer } from "mobx-react-lite";
-import { Container } from "react-bootstrap";
 import { useEffect, useState, useContext } from 'react';
+import { Container } from "react-bootstrap";
+import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { getAllUserImages } from "../http/personalArea";
 
@@ -11,25 +11,9 @@ const PersonalAreaPage = observer(function(): JSX.Element {
 
   useEffect(() => {
 
-    //console.log(user)
     async function getImages() {
-      //await getAllUserImages()
-      console.log('Достаю из стора')
-      console.log(user._user.id)
       const data = await getAllUserImages(user._user.id)
-      console.log('прилетело', data)
       setImages(data)
-
-      if (data.length > 0) {
-        console.log('Первая картинка')
-        console.log(data[0].dataSVG)
-        //console.log(data[0].dataPNG)
-        //const blob = new Blob([data[0].dataPNG])
-        //console.log(blob)
-        //const url = URL.createObjectURL(blob)
-        //console.log(data[0].dataPNG)
-        //console.log(url)
-      }
     }
     getImages()
 
