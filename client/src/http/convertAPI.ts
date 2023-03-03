@@ -16,3 +16,8 @@ export const upload = async(file: Blob | string | null) => {
   })
   return data
 }
+
+export const deleteImage = async(dataSVG: string, dataPNG: string) => {
+  console.log(dataSVG, dataPNG)
+  await $host.post(`api/image/deleteImage`, { dataSVG, dataPNG })
+}

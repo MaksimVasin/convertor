@@ -1,5 +1,6 @@
 const {Image} = require('../models/models')
 const ApiError = require('../error/ApiError');
+const fs = require('fs')
 
 class ImageController {
   
@@ -58,16 +59,28 @@ class ImageController {
   }
 
   async deleteImage(req, res, next) {
+    console.log('Попал в контроллер удаления')
     try {
-      const imageId = req.params.id;
-      const image = await Image.findOne({ where: { id: imageId } });
-      if (!image) {
-        return next(ApiError.badRequest(`Изображение с ID ${imageId} не найдено`));
-      }
-      await image.destroy();
-      res.status(204).end();
+      const { dataSVG, dataPNG } = req.body;
+      console.log('Прилетело на беке')
+      console.log(dataPNG, dataSVG)
+
+      fs.unlink(`${process.env.ROOT_PATH}/../client/public${dataPNG}`, (err) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+      })
+
+      fs.unlink(`${process.env.ROOT_PATH}/../client/public${dataSVG}`, (err) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+      })
+      res.status(204).end()
     } catch (err) {
-      return next(ApiError.internal(err.message));
+      return next(ApiError.internal(err.message))
     }
   }
 

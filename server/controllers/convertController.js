@@ -10,7 +10,6 @@ const path = require('path')
 class ConvertController {
 
   async upload(req, res, next) {
-    //const fileName = `${req.file.originalname}`;
     const fileName = req.file.originalname
     //const userName = req.userName
     const date = new Date()

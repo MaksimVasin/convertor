@@ -1,23 +1,28 @@
 import { useEffect, useState, useContext } from 'react';
-import { Container } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { getAllUserImages } from "../http/personalArea";
+import { deleteUserImage } from '../http/userAPI';
 
 const PersonalAreaPage = observer(function(): JSX.Element {
 
   const { user } = useContext(Context)
   const [images, setImages]: [any, any] = useState([])
 
+  async function getImages() {
+    const data = await getAllUserImages(user._user.id)
+    setImages(data)
+  }
+
   useEffect(() => {
-
-    async function getImages() {
-      const data = await getAllUserImages(user._user.id)
-      setImages(data)
-    }
     getImages()
-
   }, [])
+
+  async function deleteImageById(id: string | number) {
+    await deleteUserImage(user._user.id, +id)
+    await getImages()
+  }
 
   return (
     <Container>
@@ -29,10 +34,12 @@ const PersonalAreaPage = observer(function(): JSX.Element {
           filename: string,
           id: string | number
         }) => (
-          <div key={image.id}>
+          <Card style={{width: 200}} className="m-2" key={image.id}>
             <img style={{width: 100, height: 100}} alt="" src={image.dataSVG}></img>
             <div>{image.filename}</div>
-          </div>
+            <Button className="m-2">Edit</Button>
+            <Button className="m-2" onClick={() => deleteImageById(image.id)}>Delete</Button>
+          </Card>
         ))
       }
     </Container>

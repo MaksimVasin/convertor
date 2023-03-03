@@ -19,7 +19,11 @@ export const check = async () => {
   return jwt_decode(data.token);
 }
 
-export const addImage = async (id: Number, filename: string, dataSVG: string, dataPNG: string) => {
+export const addUserImage = async (id: Number, filename: string, dataSVG: string, dataPNG: string) => {
   const {data} = await $authHost.post(`api/user/${id}/createImage`, {filename, dataSVG, dataPNG})
   return data
+}
+
+export const deleteUserImage = async(userId: Number, imageId: Number) => {
+  await $authHost.delete(`api/user/${userId}/images/${imageId}`)
 }
