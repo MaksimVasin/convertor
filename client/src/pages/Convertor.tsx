@@ -19,6 +19,8 @@ const ConvertorPage = observer(function(): JSX.Element {
     if (!image) return;
 
     async function convertImage() {
+
+      if (prevPath !== pathImagePNG) await deleteImage(pathImageSVG, pathImagePNG)
   
       const pathNewImagePNG = await upload(image)
       setPathImagePNG(pathNewImagePNG)
