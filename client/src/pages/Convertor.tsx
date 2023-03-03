@@ -44,6 +44,16 @@ const ConvertorPage = observer(function(): JSX.Element {
     await addUserImage(user._user.id, image.name.split('.').slice(0, -1).join('.'), pathImageSVG, pathImagePNG)
   }
 
+  function downloadImage() { // создается ссылка, нажимается и удаляется
+    const downloadUrl = pathImageSVG
+    const downloadLink = document.createElement("a")
+    downloadLink.href = downloadUrl
+    downloadLink.download = `${image?.name.split('.').slice(0, -1).join('.')}.svg`
+    document.body.appendChild(downloadLink)
+    downloadLink.click()
+    document.body.removeChild(downloadLink)
+  }
+
   return (
     <Container>
       <h2>Convertor</h2>      
@@ -70,7 +80,8 @@ const ConvertorPage = observer(function(): JSX.Element {
               <Button className="m-2" onClick={saveImage}>Save</Button>
             }
             <Button className="m-2">Edit</Button>
-            <Button className="m-2">Download</Button>
+            {/* <a download href={pathImageSVG}>Test</a> */}
+            <Button className="m-2" onClick={downloadImage}>Download</Button>
           </div>
       }
     </Container>
