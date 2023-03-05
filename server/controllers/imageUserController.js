@@ -15,7 +15,28 @@ class ImageUserController {
       if (existingImage) return next(ApiError.badRequest('Такая картинка уже есть'))
       //////////////////////////////////////////////////////////////////////////////////////////////////
 
-      const image = await Image.create({ filename, dataSVG, dataPNG })
+      let image = await Image.findOne({ where: { filename } })
+      if (!image) {
+        image = await Image.create({ filename, dataSVG, dataPNG })
+      }
+      else {
+        image = await Image.findOrCreate({ where: { filename } }).then(
+          async ([image, created]) => {
+            if (!created) {
+              let count = 1
+              let newFilename = filename + ` (${count})`
+              while (true) {
+                let foundImage = await Image.findOne({ where: { filename: newFilename } })
+                if (foundImage) {
+                  count++;
+                  newFilename = filename + ` (${count})`;
+                } else break
+              }
+              return await Image.create({ filename: newFilename, dataSVG, dataPNG })
+            } else return image
+          }
+        );
+      }
 
       const user = await User.findByPk(userId)
 
