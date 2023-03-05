@@ -2,8 +2,9 @@ import { AdminPage } from "./pages/Admin"
 import AuthPage from "./pages/Auth"
 import ConvertorPage from "./pages/Convertor"
 import PersonalAreaPage from "./pages/PersonalArea"
+import { EditorPage } from "./pages/Editor"
 
-import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, PERSONAL_AREA_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, PERSONAL_AREA_ROUTE, EDITOR_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
   {
@@ -13,6 +14,10 @@ export const authRoutes = [
   {
     path: PERSONAL_AREA_ROUTE,
     Component: PersonalAreaPage,
+  },
+  {
+    path: EDITOR_ROUTE + '/:id',
+    Component: EditorPage,
   }
 ]
 
