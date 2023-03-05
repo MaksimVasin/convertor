@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { useContext } from "react"
-import { Container, Navbar, Nav, Button } from "react-bootstrap"
+import { Container, Navbar, Nav, Button, Badge } from "react-bootstrap"
 import { NavLink, useNavigate } from "react-router-dom"
 import { Context } from "../index"
 import { ADMIN_ROUTE, CONVERTOR_ROUTE, LOGIN_ROUTE, PERSONAL_AREA_ROUTE, REGISTRATION_ROUTE } from "../utils/consts"
@@ -26,6 +26,7 @@ export const NavBar = observer(() => {
           <NavLink className="m-2" to={PERSONAL_AREA_ROUTE}>Perosnal area</NavLink>
           <NavLink className="m-2" to={ADMIN_ROUTE}>Admin</NavLink>
           <Button onClick={() => logOut()}>Logout</Button>
+          <Badge className="m-2">{ user._user.login }</Badge>
         </Nav>
         :
         <Nav className="ml-auto">
