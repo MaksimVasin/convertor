@@ -6,6 +6,7 @@ const Image = sequelize.define('image', {
   filename: {type: DataTypes.STRING},
   dataSVG: {type: DataTypes.STRING},
   dataPNG: {type: DataTypes.STRING},
+  userId: {type: DataTypes.INTEGER},
 })
 
 const User = sequelize.define('user', {
