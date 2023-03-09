@@ -9,42 +9,41 @@ class ImageUserController {
       const { userId } = req.params
       const { filename, dataSVG, dataPNG } = req.body
 
-      //////////////////////////////////////////////////////////////////////////////////////////////////
-      // Возможно лучше проверять на фронте повторное сохранение, а не каждый раз за N искать картинку
-      const existingImage = await Image.findOne({ where: {dataSVG} })
-      if (existingImage) return next(ApiError.badRequest('Такая картинка уже есть'))
-      //////////////////////////////////////////////////////////////////////////////////////////////////
+      const user = await User.findByPk(userId)
+      if (!user) return next(ApiError.badRequest('Пользователь не найден'))
+      const imagesIds = JSON.parse(user.imagesIds)
 
-      let image = await Image.findOne({ where: { filename, userId } })
+      const existingImage = await Image.findOne({where: {id: imagesIds, dataSVG}})
+      if (existingImage) return next(ApiError.badRequest('Такая картинка уже есть'))
+
+      let image = await Image.findOne({ where: { id: imagesIds, filename } })
       if (!image) {
         image = await Image.create({ filename, dataSVG, dataPNG, userId })
       }
       else {
-        image = await Image.findOrCreate({ where: { filename, userId } }).then(
+        image = await Image.findOrCreate({ where: { id: imagesIds, filename } }).then(
           async ([image, created]) => {
             if (!created) {
               let count = 1
               let newFilename = filename + ` (${count})`
               while (true) {
-                let foundImage = await Image.findOne({ where: { filename: newFilename, userId } })
+                let foundImage = await Image.findOne({ where: { id: imagesIds, filename: newFilename } })
                 if (foundImage) {
                   count++;
-                  newFilename = filename + ` (${count})`;
+                  newFilename = filename + ` (${count})`
                 } else break
               }
               return await Image.create({ filename: newFilename, dataSVG, dataPNG, userId })
             } else return image
           }
-        );
+        )
       }
 
-      const user = await User.findByPk(userId)
+      imagesIds.push(image.id)
+      user.imagesIds = JSON.stringify(imagesIds)
+      await user.save()
 
-      if (!user) return next(ApiError.badRequest('Пользователь не найден'))
-
-      await user.addImage(image)
-
-      res.json({
+      return res.json({
         message: `Изображение ${image.id} связано с пользователем ${userId}`,
       });
     } catch (err) {
@@ -54,14 +53,12 @@ class ImageUserController {
 
   async getUserImages(req, res, next) {
     try {
-      console.log(req.params.userId)
       const user = await User.findByPk(req.params.userId)
-      if (!user) {
-        return next(ApiError.badRequest('Пользователь не найден'))
-      }
-  
-      const userImages = await user.getImages()
-      return res.json(userImages)
+      if (!user) return next(ApiError.badRequest('Пользователь не найден'))
+      const imagesIds = JSON.parse(user.imagesIds)
+
+      const images = await Image.findAll({where: {id: imagesIds}})
+      return res.json(images)
     } catch (err) {
       return next(ApiError.internal(err.message))
     }

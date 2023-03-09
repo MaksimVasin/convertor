@@ -15,6 +15,7 @@ const User = sequelize.define('user', {
   email: {type: DataTypes.STRING, unique: true},
   password: {type: DataTypes.STRING},
   role: {type: DataTypes.STRING, defaultValue: 'user'},
+  imagesIds: {type: DataTypes.STRING}, // Строка с id изображений пользователя
 })
 
 const Type = sequelize.define('type', {
