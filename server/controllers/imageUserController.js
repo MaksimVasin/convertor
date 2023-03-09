@@ -56,7 +56,6 @@ class ImageUserController {
       const user = await User.findByPk(req.params.userId)
       if (!user) return next(ApiError.badRequest('Пользователь не найден'))
       const imagesIds = JSON.parse(user.imagesIds)
-
       const images = await Image.findAll({where: {id: imagesIds}})
       return res.json(images)
     } catch (err) {
@@ -78,6 +77,12 @@ class ImageUserController {
         return next(ApiError.badRequest('Изображение не найдено'));
       }
 
+      const imagesIds = JSON.parse(user.imagesIds).filter(imgId => imgId != imageId)
+      user.imagesIds = JSON.stringify(imagesIds)
+      await user.save()
+      //await user.removeImage(image)  
+      await image.destroy()
+
       fs.unlink(`${process.env.ROOT_PATH}/../client/public${image.dataPNG}`, (err) => {
         if (err) {
           console.log(err)
@@ -90,10 +95,6 @@ class ImageUserController {
           return
         }
       })
-  
-      await user.removeImage(image)
-      await image.destroy()
-
   
       return res.sendStatus(204);
     } catch (err) {
