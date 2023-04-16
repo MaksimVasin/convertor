@@ -10,19 +10,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "misc-utils-of-mine-generic": "^0.2.45",
-    "multer": "^1.4.5-lts.1",
-    "pg": "^8.9.0",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.28.0",
-    "svg-png-converter": "^0.0.9"
+    "bcrypt": "5.1.0",
+    "cors": "2.8.5",
+    "dotenv": "16.0.3",
+    "express": "4.18.2",
+    "jsonwebtoken": "9.0.0",
+    "misc-utils-of-mine-generic": "0.2.45",
+    "multer": "1.4.5-lts.1",
+    "pg": "8.9.0",
+    "pg-hstore": "2.3.4",
+    "sequelize": "6.28.0",
+    "svg-png-converter": "0.0.9"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "2.0.20"
   }
 }

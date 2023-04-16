@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Card, Button, NavLink, Nav } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import { getAllUserImages } from "../http/personalArea";
@@ -18,7 +18,7 @@ const PersonalAreaPage = observer(function(): JSX.Element {
     setImages(data)
   }
 
-  function handleEditClick(id: string | number) {
+  function handleEditClick(id: number) {
     navigate(`${EDITOR_ROUTE}/${id}`)
   }
 
@@ -26,7 +26,7 @@ const PersonalAreaPage = observer(function(): JSX.Element {
     getImages()
   }, [])
 
-  async function deleteImageById(id: string | number) {
+  async function deleteImageById(id: number) {
     await deleteUserImage(user._user.id, +id)
     await getImages()
   }
@@ -39,7 +39,7 @@ const PersonalAreaPage = observer(function(): JSX.Element {
           dataPNG: string,
           dataSVG: string,
           filename: string,
-          id: string | number
+          id: number
         }) => (
           <Card style={{width: 200}} className="m-2" key={image.id}>
             <img style={{width: 100, height: 100}} alt="" src={image.dataSVG}></img>

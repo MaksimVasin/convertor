@@ -21,6 +21,7 @@ export const check = async () => {
 
 export const addUserImage = async (id: Number, filename: string, dataSVG: string, dataPNG: string) => {
   const {data} = await $authHost.post(`api/user/${id}/createImage`, {filename, dataSVG, dataPNG})
+  console.log(data)
   return data
 }
 

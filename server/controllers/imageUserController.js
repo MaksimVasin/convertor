@@ -44,7 +44,7 @@ class ImageUserController {
       await user.save()
 
       return res.json({
-        message: `Изображение ${image.id} связано с пользователем ${userId}`,
+        id: image.id,
       });
     } catch (err) {
       return next(ApiError.internal(err.message));

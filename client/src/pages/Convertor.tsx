@@ -1,17 +1,22 @@
 import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Container, Spinner, Form, Badge } from 'react-bootstrap'
 import { observer } from "mobx-react-lite"
 import { Context } from "../index";
 import { convert, deleteImage, upload } from "../http/convertAPI";
 import { addUserImage } from '../http/userAPI';
+import { EDITOR_ROUTE } from '../utils/consts';
 
 const ConvertorPage = observer(function(): JSX.Element {
 
+  const navigate = useNavigate()
   const [image, setImage]: [File | null, any] = useState(null)
 
   const [prevPath, setPrevPath]: [string, any] = useState('')
   const [pathImagePNG, setPathImagePNG]: [string, any] = useState('')
   const [pathImageSVG, setPathImageSVG]: [string, any] = useState('')
+  const [isDisabletEdit, setIsDisabledEdit]: [boolean, any] = useState(true)
+  const [currentId, setCurrentId]: [number, any] = useState(-1)
 
   const {user} = useContext(Context)
 
@@ -41,7 +46,9 @@ const ConvertorPage = observer(function(): JSX.Element {
     if (!image) return
     if (prevPath === pathImagePNG && pathImagePNG) return
     setPrevPath(pathImagePNG)
-    await addUserImage(user._user.id, image.name.split('.').slice(0, -1).join('.'), pathImageSVG, pathImagePNG)
+    const {id} = await addUserImage(user._user.id, image.name.split('.').slice(0, -1).join('.'), pathImageSVG, pathImagePNG)
+    setCurrentId(id)
+    setIsDisabledEdit(false)
   }
 
   function downloadImage() { // создается ссылка, нажимается и удаляется
@@ -52,6 +59,10 @@ const ConvertorPage = observer(function(): JSX.Element {
     document.body.appendChild(downloadLink)
     downloadLink.click()
     document.body.removeChild(downloadLink)
+  }
+
+  function editImage(id: number) {
+    navigate(`${EDITOR_ROUTE}/${id}`)
   }
 
   return (
@@ -79,8 +90,7 @@ const ConvertorPage = observer(function(): JSX.Element {
               <Badge bg="success">Сохранено</Badge> :
               <Button className="m-2" onClick={saveImage}>Save</Button>
             }
-            <Button className="m-2">Edit</Button>
-            {/* <a download href={pathImageSVG}>Test</a> */}
+            <Button disabled={isDisabletEdit} className="m-2" onClick={() => editImage(currentId)}>Edit</Button>
             <Button className="m-2" onClick={downloadImage}>Download</Button>
           </div>
       }
