@@ -1,9 +1,10 @@
 import { Container } from "react-bootstrap";
+import SvgEditor from "../components/SvgEditor/SvgEditor";
 
 export function EditorPage(): JSX.Element {
   return (
-    <Container>
-      <h2>Editor page</h2>
+    <Container fluid style={{marginTop: '8px'}}>
+      <SvgEditor/>
     </Container>
   )
 }

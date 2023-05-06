@@ -52,5 +52,14 @@
     "fs": false,
     "os": false,
     "path": false
+  },
+  "devDependencies": {
+    "@types/color-string": "^1.5.2",
+    "@types/react-color": "3.0.6",
+    "@types/reactcss": "1.2.6",
+    "color-string": "1.9.1",
+    "react-color": "2.19.3",
+    "reactcss": "1.2.3",
+    "style-loader": "^3.3.2"
   }
 }
